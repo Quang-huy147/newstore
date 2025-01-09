@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  resources :products
+  resources :products do
+    resources :subscribers, only: [ :create ]
+    end 
+  
 
   get "up" => "rails/health#show", as: :rails_health_check
   get "/products", to: "products#index"
@@ -19,3 +22,4 @@ delete "/products/:id", to: "products#destroy"
 root "products#index"
 
 end
+
